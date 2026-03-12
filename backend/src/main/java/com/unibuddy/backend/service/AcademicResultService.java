@@ -8,3 +8,12 @@ import com.unibuddy.backend.model.AcademicResult;
 import com.unibuddy.backend.repository.AcademicResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class AcademicResultService {

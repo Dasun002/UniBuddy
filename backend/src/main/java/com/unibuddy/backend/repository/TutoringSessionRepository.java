@@ -1,3 +1,6 @@
 package com.unibuddy.backend.repository;
 
 import com.unibuddy.backend.model.TutoringSession;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
