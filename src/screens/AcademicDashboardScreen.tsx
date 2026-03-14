@@ -45,3 +45,50 @@ const AcademicDashboardScreen = ({ route, navigation }: any) => {
   // Form State
   const [isAddModalVisible, setAddModalVisible] = useState(false);
   const [semester, setSemester] = useState('1');
+  const [moduleCode, setModuleCode] = useState('');
+  const [moduleName, setModuleName] = useState('');
+  const [credits, setCredits] = useState('');
+  const [grade, setGrade] = useState('');
+
+  // Predictor State
+  const [isPredictorVisible, setPredictorVisible] = useState(false);
+  const [targetCGPA, setTargetCGPA] = useState('');
+  const [remainingCredits, setRemainingCredits] = useState('');
+  const [prediction, setPrediction] = useState<any>(null);
+
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true);
+      const res = await academicApi.getResultsByStudent(currentUserId);
+      setResults(res.data);
+      const cgpaRes = await academicApi.getCGPA(currentUserId);
+      setCgpa(cgpaRes.data);
+    } catch (e) {
+      console.log(e);
+      Alert.alert('Error', 'Unable to fetch academic data.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchDashboardData();
+    }, [])
+  );
+
+  const handleAddResult = async () => {
+    if (!moduleCode || !credits || !grade) {
+      Alert.alert('Validation Required', 'Please complete all required fields.');
+      return;
+    }
+    const gp = getGradePoint(grade);
+    const payload = {
+      studentId: currentUserId,
+      semester: parseInt(semester),
+      moduleCode,
+      moduleName,
+      credits: parseInt(credits),
+      grade: grade.toUpperCase(),
+      gradePoint: gp,
+    };
