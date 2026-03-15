@@ -15,3 +15,13 @@ import java.util.List;
 
 @Service
 public class TutoringSessionService {
+
+    @Autowired
+    private TutoringSessionRepository repository;
+
+    public TutoringSession bookSession(TutoringSession session) {
+        if (repository.isTutorBooked(session.getTutorId(), session.getSessionDate(), session.getStartTime(), session.getEndTime())) {
+            throw new RuntimeException("Scheduling Error: The selected tutor is unavailable at the requested time.");
+        }
+        return repository.save(session);
+    }

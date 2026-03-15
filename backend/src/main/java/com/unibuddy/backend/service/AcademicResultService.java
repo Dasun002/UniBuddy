@@ -17,3 +17,14 @@ import java.util.Map;
 
 @Service
 public class AcademicResultService {
+
+    @Autowired
+    private AcademicResultRepository repository;
+
+    public AcademicResult saveResult(AcademicResult result) {
+        return repository.save(result);
+    }
+
+    public List<AcademicResult> getResultsByStudent(String studentId) {
+        return repository.findByStudentId(studentId);
+    }

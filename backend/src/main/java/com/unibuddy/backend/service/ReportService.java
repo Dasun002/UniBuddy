@@ -10,3 +10,8 @@ import com.unibuddy.backend.model.ForumAnswer;
 import com.unibuddy.backend.model.ForumQuestion;
 import com.unibuddy.backend.repository.ForumAnswerRepository;
 import com.unibuddy.backend.repository.ForumQuestionRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.io.ByteArrayOutputStream;
+import java.util.List;
