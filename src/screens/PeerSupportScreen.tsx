@@ -53,3 +53,58 @@ const PeerSupportScreen = ({ route, navigation }: any) => {
   };
 
   const handleStartTimeChange = (event: any, selectedDate?: Date) => {
+    setShowStartTimePicker(false);
+    if (selectedDate) {
+      setStartObj(selectedDate);
+      const timeString = selectedDate.toTimeString().split(' ')[0].substring(0, 5); // HH:MM
+      setStartTime(timeString);
+    }
+  };
+
+  const handleEndTimeChange = (event: any, selectedDate?: Date) => {
+    setShowEndTimePicker(false);
+    if (selectedDate) {
+      setEndObj(selectedDate);
+      const timeString = selectedDate.toTimeString().split(' ')[0].substring(0, 5); // HH:MM
+      setEndTime(timeString);
+    }
+  };
+
+  const handleTutorIdChange = async (text: string) => {
+    setTutorId(text);
+    if (text.length > 2) {
+      try {
+        const res = await userSearchApi.searchUsers(text);
+        setSearchSuggestions(res.data);
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      setSearchSuggestions([]);
+    }
+  };
+
+  const selectTutor = (id: string) => {
+    setTutorId(id);
+    setSearchSuggestions([]);
+  };
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const [resHistory, resRequests] = await Promise.all([
+        tutoringApi.getStudentHistory(currentUserId),
+        tutoringApi.getTutorSchedule(currentUserId)
+      ]);
+      setHistory(resHistory.data);
+      setTutorRequests(resRequests.data);
+    } catch (e) {
+      console.log(e);
+      Alert.alert('Error', 'Unable to load tutoring sessions.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
