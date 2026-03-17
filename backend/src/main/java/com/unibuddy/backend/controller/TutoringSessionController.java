@@ -19,3 +19,10 @@ public class TutoringSessionController {
 
     @Autowired
     private TutoringSessionService service;
+
+    @PostMapping("/book")
+    public ResponseEntity<?> bookSession(@RequestBody TutoringSession session) {
+        try {
+            return ResponseEntity.ok(service.bookSession(session));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));

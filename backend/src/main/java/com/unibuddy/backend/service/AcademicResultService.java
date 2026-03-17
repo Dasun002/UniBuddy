@@ -28,3 +28,13 @@ public class AcademicResultService {
     public List<AcademicResult> getResultsByStudent(String studentId) {
         return repository.findByStudentId(studentId);
     }
+    
+    public List<AcademicResult> getResultsByStudentAndSemester(String studentId, int semester) {
+        return repository.findByStudentIdAndSemester(studentId, semester);
+    }
+
+    public void deleteResult(Long id) {
+        repository.deleteById(id);
+    }
+
+    public AcademicResult updateResult(Long id, AcademicResult updated) {

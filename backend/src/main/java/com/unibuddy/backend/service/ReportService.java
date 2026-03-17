@@ -15,3 +15,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class ReportService {
+
+    private final ForumQuestionRepository questionRepo;
+    private final ForumAnswerRepository answerRepo;

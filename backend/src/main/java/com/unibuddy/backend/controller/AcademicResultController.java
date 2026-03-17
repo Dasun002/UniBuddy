@@ -13,3 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api/academic")
+@CrossOrigin(origins = "*")
+public class AcademicResultController {
+
+    @Autowired

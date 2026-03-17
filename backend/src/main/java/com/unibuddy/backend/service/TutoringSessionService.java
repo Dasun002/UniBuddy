@@ -25,3 +25,11 @@ public class TutoringSessionService {
         }
         return repository.save(session);
     }
+
+    public List<TutoringSession> getStudentHistory(String studentId) {
+        return repository.findByStudentIdOrderBySessionDateDesc(studentId);
+    }
+
+    public List<TutoringSession> getTutorSchedule(String tutorId) {
+        return repository.findByTutorIdOrderBySessionDateDesc(tutorId);
+    }
