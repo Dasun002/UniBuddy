@@ -92,3 +92,50 @@ const AcademicDashboardScreen = ({ route, navigation }: any) => {
       grade: grade.toUpperCase(),
       gradePoint: gp,
     };
+
+    try {
+      await academicApi.createResult(payload);
+      setAddModalVisible(false);
+      fetchDashboardData();
+      
+      setModuleCode('');
+      setModuleName('');
+      setCredits('');
+      setGrade('');
+    } catch (e) {
+      Alert.alert('Error', 'Unable to save the result.');
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      await academicApi.deleteResult(id);
+      fetchDashboardData();
+    } catch (e) {
+      Alert.alert('Error', 'Unable to delete the result.');
+    }
+  };
+
+  const handlePredict = async () => {
+    if (!targetCGPA || !remainingCredits) return;
+    try {
+      const res = await academicApi.predictGPA(currentUserId, parseFloat(targetCGPA), parseInt(remainingCredits));
+      setPrediction(res.data);
+    } catch (e) {
+      Alert.alert('Error', 'Prediction failed. Please try again.');
+    }
+  };
+
+  const handleDownloadPDF = async () => {
+    try {
+      Alert.alert('Download Initiated', 'Your PDF is being generated. Please wait.');
+      const path = await academicApi.downloadReport(currentUserId);
+      Alert.alert('Success', `PDF saved to ${path}`);
+    } catch (e) {
+      console.log(e);
+      Alert.alert('Error', 'An error occurred while downloading the PDF.');
+    }
+  };
+
+  const semesters = [...new Set(results.map(r => r.semester))].sort((a,b)=>a-b);
+  const trendData = semesters.map(sem => {
