@@ -33,3 +33,13 @@ public class TutoringSessionService {
     public List<TutoringSession> getTutorSchedule(String tutorId) {
         return repository.findByTutorIdOrderBySessionDateDesc(tutorId);
     }
+
+    public TutoringSession updateSessionTime(Long id, TutoringSession updated, String requestingStudentId) {
+        return repository.findById(id).map(session -> {
+            if (session.getStudentId() == null || requestingStudentId == null || !session.getStudentId().trim().equalsIgnoreCase(requestingStudentId.trim())) {
+                throw new RuntimeException("Unauthorized Access: Only the student who originated this booking can modify it.");
+            }
+            
+            session.setSessionDate(updated.getSessionDate());
+            session.setStartTime(updated.getStartTime());
+            session.setEndTime(updated.getEndTime());

@@ -22,3 +22,9 @@ public class ReportService {
 
     private final ForumQuestionRepository questionRepo;
     private final ForumAnswerRepository answerRepo;
+
+    public byte[] generateRecommendedQAPDF(Long questionId) {
+        ForumQuestion q = questionRepo.findById(questionId)
+                .orElseThrow(() -> new RuntimeException("Question not found"));
+                
+        List<ForumAnswer> allAnswers = answerRepo.findByQuestionId(questionId);

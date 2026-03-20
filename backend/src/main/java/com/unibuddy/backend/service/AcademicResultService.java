@@ -38,3 +38,13 @@ public class AcademicResultService {
     }
 
     public AcademicResult updateResult(Long id, AcademicResult updated) {
+        return repository.findById(id).map(result -> {
+            result.setSemester(updated.getSemester());
+            result.setModuleCode(updated.getModuleCode());
+            result.setModuleName(updated.getModuleName());
+            result.setCredits(updated.getCredits());
+            result.setGrade(updated.getGrade());
+            result.setGradePoint(updated.getGradePoint());
+            return repository.save(result);
+        }).orElseThrow(() -> new RuntimeException("Result not found"));
+    }

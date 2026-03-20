@@ -18,3 +18,8 @@ import java.util.Map;
 public class AcademicResultController {
 
     @Autowired
+    private AcademicResultService academicService;
+
+    @PostMapping
+    public ResponseEntity<AcademicResult> addResult(@RequestBody AcademicResult result) {
+        return ResponseEntity.ok(academicService.saveResult(result));

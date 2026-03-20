@@ -26,3 +26,10 @@ public class TutoringSessionController {
             return ResponseEntity.ok(service.bookSession(session));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<List<TutoringSession>> getStudentHistory(@PathVariable String studentId) {
+        return ResponseEntity.ok(service.getStudentHistory(studentId));
+    }
