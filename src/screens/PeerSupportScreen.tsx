@@ -108,3 +108,57 @@ const PeerSupportScreen = ({ route, navigation }: any) => {
 
   useFocusEffect(
     useCallback(() => {
+      fetchData();
+    }, [])
+  );
+
+  const handleBookSession = async () => {
+    if (!tutorId || !moduleCode || !sessionDate || !startTime || !endTime) {
+      Alert.alert('Validation Required', 'Please complete all fields.');
+      return;
+    }
+    
+    // Auto format time safely to HH:MM:SS for Spring Boot LocalTime bounds
+    const formatTime = (t: string) => t.length <= 5 ? `${t}:00` : t;
+
+    const payload = {
+      studentId: currentUserId,
+      tutorId: tutorId.toUpperCase(),
+      moduleCode: moduleCode.toUpperCase(),
+      sessionDate,
+      startTime: formatTime(startTime),
+      endTime: formatTime(endTime)
+    };
+
+    try {
+      await tutoringApi.bookSession(payload);
+      Alert.alert('Success', 'Your tutoring request has been sent successfully.');
+      setBookModalVisible(false);
+      fetchData();
+    } catch (e: any) {
+      Alert.alert('Booking Failed', e.response?.data?.error || 'The selected slot is currently unavailable.');
+    }
+  };
+
+  const handleCancel = async (id: number) => {
+    try {
+      await tutoringApi.cancelSession(id, currentUserId);
+      fetchData();
+    } catch (e) {
+      Alert.alert('Error', 'Unable to cancel the session.');
+    }
+  };
+
+  const handleAccept = async (id: number) => {
+    try {
+      await tutoringApi.acceptSession(id, currentUserId);
+      fetchData();
+    } catch (e: any) {
+      Alert.alert('Error', e.response?.data?.error || 'Unable to accept the request.');
+    }
+  };
+
+  const openDeclineModal = (id: number) => {
+    setSelectedSessionId(id);
+    setDeclineModalVisible(true);
+  };
