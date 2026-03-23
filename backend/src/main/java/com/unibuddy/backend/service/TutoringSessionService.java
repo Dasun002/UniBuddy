@@ -43,3 +43,12 @@ public class TutoringSessionService {
             session.setSessionDate(updated.getSessionDate());
             session.setStartTime(updated.getStartTime());
             session.setEndTime(updated.getEndTime());
+            session.setStatus("PENDING"); // reset to pending on change
+            
+            return repository.save(session);
+        }).orElseThrow(() -> new RuntimeException("Session not found"));
+    }
+
+    public void acceptSession(Long id, String tutorId) {
+        TutoringSession session = repository.findById(id).orElseThrow(() -> new RuntimeException("Session not found"));
+        if (session.getTutorId() == null || tutorId == null || !session.getTutorId().trim().equalsIgnoreCase(tutorId.trim())) {

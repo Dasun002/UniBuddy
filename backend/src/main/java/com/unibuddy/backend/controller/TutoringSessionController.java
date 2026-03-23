@@ -33,3 +33,10 @@ public class TutoringSessionController {
     public ResponseEntity<List<TutoringSession>> getStudentHistory(@PathVariable String studentId) {
         return ResponseEntity.ok(service.getStudentHistory(studentId));
     }
+
+    @GetMapping("/tutor/{tutorId}")
+    public ResponseEntity<List<TutoringSession>> getTutorSchedule(@PathVariable String tutorId) {
+        return ResponseEntity.ok(service.getTutorSchedule(tutorId));
+    }
+
+    @PutMapping("/{id}/reschedule")

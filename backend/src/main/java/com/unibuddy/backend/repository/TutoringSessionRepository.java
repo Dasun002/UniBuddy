@@ -13,3 +13,5 @@ import java.util.List;
 @Repository
 public interface TutoringSessionRepository extends JpaRepository<TutoringSession, Long> {
     
+    // Find all bookings for a specific student (History)
+    List<TutoringSession> findByStudentIdOrderBySessionDateDesc(String studentId);

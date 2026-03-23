@@ -23,3 +23,8 @@ public class AcademicResultController {
     @PostMapping
     public ResponseEntity<AcademicResult> addResult(@RequestBody AcademicResult result) {
         return ResponseEntity.ok(academicService.saveResult(result));
+    }
+
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<List<AcademicResult>> getResults(@PathVariable String studentId) {
+        return ResponseEntity.ok(academicService.getResultsByStudent(studentId));

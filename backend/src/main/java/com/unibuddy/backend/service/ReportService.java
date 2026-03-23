@@ -28,3 +28,9 @@ public class ReportService {
                 .orElseThrow(() -> new RuntimeException("Question not found"));
                 
         List<ForumAnswer> allAnswers = answerRepo.findByQuestionId(questionId);
+
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            Document document = new Document();
+            PdfWriter.getInstance(document, baos);
+            
+            document.open();

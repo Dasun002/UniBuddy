@@ -48,3 +48,13 @@ public class AcademicResultService {
             return repository.save(result);
         }).orElseThrow(() -> new RuntimeException("Result not found"));
     }
+
+    public double calculateCGPA(String studentId) {
+        List<AcademicResult> results = repository.findByStudentId(studentId);
+        return computeGPA(results);
+    }
+
+    public double calculateSemesterGPA(String studentId, int semester) {
+        List<AcademicResult> results = repository.findByStudentIdAndSemester(studentId, semester);
+        return computeGPA(results);
+    }
