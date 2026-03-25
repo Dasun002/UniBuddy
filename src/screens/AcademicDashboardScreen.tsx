@@ -139,3 +139,50 @@ const AcademicDashboardScreen = ({ route, navigation }: any) => {
 
   const semesters = [...new Set(results.map(r => r.semester))].sort((a,b)=>a-b);
   const trendData = semesters.map(sem => {
+    const semResults = results.filter(r => r.semester === sem);
+    const tPoints = semResults.reduce((acc, r) => acc + (r.gradePoint * r.credits), 0);
+    const tCredits = semResults.reduce((acc, r) => acc + r.credits, 0);
+    return tCredits > 0 ? (tPoints / tCredits) : 0;
+  });
+
+  const chartData = {
+    labels: semesters.length > 0 ? semesters.map(s => `Sem ${s}`) : ['None'],
+    datasets: [{ data: trendData.length > 0 ? trendData : [0] }]
+  };
+
+  const completedCredits = results.reduce((acc, r) => acc + r.credits, 0);
+  const totalDegreeCredits = 120; // Example average target
+  const pieData = [
+    { name: 'Completed', credits: completedCredits, color: appTheme.colors.primary, legendFontColor: appTheme.colors.textPrimary, legendFontSize: 13 },
+    { name: 'Remaining', credits: Math.max(0, totalDegreeCredits - completedCredits), color: '#ddd', legendFontColor: appTheme.colors.textPrimary, legendFontSize: 13 }
+  ];
+
+  if (loading) return <ActivityIndicator style={{ flex: 1, justifyContent:'center' }} size="large" />;
+
+  return (
+    <ScrollView style={styles.container}>
+      <Animatable.View animation="fadeInDown" duration={500} style={styles.header}>
+        <Text style={styles.title}>Analytics Hub</Text>
+        <Text style={styles.cgpa}>CGPA: {cgpa.toFixed(2)}</Text>
+      </Animatable.View>
+
+      <Animatable.View animation="zoomIn" delay={100} duration={600} style={styles.chartCard}>
+        <Text style={styles.sectionTitle}>Progress Trends</Text>
+        {semesters.length > 0 ? (
+          <LineChart
+            data={chartData}
+            width={screenWidth - 60}
+            height={220}
+            chartConfig={{
+              backgroundColor: appTheme.colors.glassStrong,
+              backgroundGradientFrom: appTheme.colors.glassStrong,
+              backgroundGradientTo: appTheme.colors.glassStrong,
+              color: (opacity = 1) => `rgba(0, 122, 255, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(16, 42, 67, ${opacity})`,
+              propsForDots: { r: "5", strokeWidth: "2", stroke: appTheme.colors.primary }
+            }}
+            bezier
+            style={styles.chart}
+          />
+        ) : <Text style={styles.emptyText}>Add results to see your trend</Text>}
+      </Animatable.View>
