@@ -40,3 +40,10 @@ public class TutoringSessionController {
     }
 
     @PutMapping("/{id}/reschedule")
+    public ResponseEntity<?> rescheduleSession(@PathVariable Long id, @RequestParam String studentId, @RequestBody TutoringSession updated) {
+        try {
+            return ResponseEntity.ok(service.updateSessionTime(id, updated, studentId));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }

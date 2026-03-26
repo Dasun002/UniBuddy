@@ -28,3 +28,8 @@ public class AcademicResultController {
     @GetMapping("/student/{studentId}")
     public ResponseEntity<List<AcademicResult>> getResults(@PathVariable String studentId) {
         return ResponseEntity.ok(academicService.getResultsByStudent(studentId));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AcademicResult> updateResult(@PathVariable Long id, @RequestBody AcademicResult result) {
+        return ResponseEntity.ok(academicService.updateResult(id, result));

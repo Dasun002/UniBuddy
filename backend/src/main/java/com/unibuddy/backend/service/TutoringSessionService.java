@@ -52,3 +52,12 @@ public class TutoringSessionService {
     public void acceptSession(Long id, String tutorId) {
         TutoringSession session = repository.findById(id).orElseThrow(() -> new RuntimeException("Session not found"));
         if (session.getTutorId() == null || tutorId == null || !session.getTutorId().trim().equalsIgnoreCase(tutorId.trim())) {
+            throw new RuntimeException("Unauthorized");
+        }
+        
+        if (repository.isTutorBooked(tutorId, session.getSessionDate(), session.getStartTime(), session.getEndTime())) {
+            throw new RuntimeException("Scheduling Conflict: You already have an accepted booking that overlaps with this time slot.");
+        }
+        
+        session.setStatus("SCHEDULED");
+        repository.save(session);

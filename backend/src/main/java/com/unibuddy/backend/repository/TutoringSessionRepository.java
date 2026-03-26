@@ -15,3 +15,6 @@ public interface TutoringSessionRepository extends JpaRepository<TutoringSession
     
     // Find all bookings for a specific student (History)
     List<TutoringSession> findByStudentIdOrderBySessionDateDesc(String studentId);
+
+    // Find all sessions a student is teaching
+    List<TutoringSession> findByTutorIdOrderBySessionDateDesc(String tutorId);

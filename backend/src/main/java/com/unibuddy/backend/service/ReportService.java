@@ -34,3 +34,9 @@ public class ReportService {
             PdfWriter.getInstance(document, baos);
             
             document.open();
+            
+            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
+            Paragraph title = new Paragraph("Academic Forum - Q&A Report", titleFont);
+            title.setAlignment(Paragraph.ALIGN_CENTER);
+            document.add(title);
+            

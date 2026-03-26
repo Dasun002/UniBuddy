@@ -10,3 +10,5 @@ import java.time.LocalTime;
 @Data
 public class TutoringSession {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;

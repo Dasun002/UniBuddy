@@ -10,3 +10,5 @@ import lombok.Data;
 @Entity
 @Table(name = "academic_results")
 @Data
+public class AcademicResult {
+    @Id

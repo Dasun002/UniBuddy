@@ -58,3 +58,13 @@ public class AcademicResultService {
         List<AcademicResult> results = repository.findByStudentIdAndSemester(studentId, semester);
         return computeGPA(results);
     }
+
+    private double computeGPA(List<AcademicResult> results) {
+        if (results == null || results.isEmpty()) return 0.0;
+        
+        double totalPoints = 0;
+        int totalCredits = 0;
+
+        for (AcademicResult r : results) {
+            totalPoints += (r.getGradePoint() * r.getCredits());
+            totalCredits += r.getCredits();
