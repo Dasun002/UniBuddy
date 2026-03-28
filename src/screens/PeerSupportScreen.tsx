@@ -162,3 +162,59 @@ const PeerSupportScreen = ({ route, navigation }: any) => {
     setSelectedSessionId(id);
     setDeclineModalVisible(true);
   };
+
+  const handleDecline = async () => {
+    if (!selectedRequestId || !declineReason) {
+      Alert.alert('Validation Required', 'Please provide a reason.');
+      return;
+    }
+    try {
+      await tutoringApi.declineSession(selectedRequestId, currentUserId, declineReason);
+      setDeclineModalVisible(false);
+      setDeclineReason('');
+      fetchData();
+    } catch (e: any) {
+      Alert.alert('Error', e.response?.data?.error || 'Unable to decline the request.');
+    }
+  };
+
+  const handleDownloadPDF = async () => {
+    try {
+      Alert.alert('Download Initiated', 'Please wait while the PDF summary is being generated.');
+      const path = await tutoringApi.downloadReport(currentUserId);
+      Alert.alert('Success', `PDF saved to ${path}`);
+    } catch (e) {
+      Alert.alert('Error', 'An error occurred while downloading the PDF.');
+    }
+  };
+
+  if (loading) return <ActivityIndicator style={{ flex: 1, justifyContent:'center' }} size="large" />;
+
+  return (
+    <View style={styles.container}>
+      <Animatable.View animation="fadeInDown" style={styles.header}>
+        <Text style={styles.title}>Peer Tutoring</Text>
+      </Animatable.View>
+
+      <Animatable.View animation="zoomIn" delay={100} style={styles.actionRow}>
+        <TouchableOpacity style={styles.actionBtn} onPress={() => setBookModalVisible(true)}>
+          <Text style={styles.btnText}>+ Book Session</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.actionBtnOutline} onPress={handleDownloadPDF}>
+          <Text style={styles.btnTextPrimary}>Summary PDF</Text>
+        </TouchableOpacity>
+      </Animatable.View>
+
+      <Animatable.View animation="fadeIn" delay={200} style={styles.tabContainer}>
+        <TouchableOpacity style={[styles.tab, activeTab === 'myBookings' && styles.activeTab]} onPress={() => setActiveTab('myBookings')}>
+          <Text style={[styles.tabText, activeTab === 'myBookings' && styles.activeTabText]}>My Bookings</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.tab, activeTab === 'tutorRequests' && styles.activeTab]} onPress={() => setActiveTab('tutorRequests')}>
+          <Text style={[styles.tabText, activeTab === 'tutorRequests' && styles.activeTabText]}>Requests For Me</Text>
+        </TouchableOpacity>
+      </Animatable.View>
+
+      <ScrollView>
+        {activeTab === 'myBookings' ? (
+          <>
+            {history.length === 0 ? <Text style={styles.empty}>No bookings found.</Text> : null}
