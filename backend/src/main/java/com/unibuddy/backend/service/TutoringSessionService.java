@@ -61,3 +61,12 @@ public class TutoringSessionService {
         
         session.setStatus("SCHEDULED");
         repository.save(session);
+    }
+
+    public void declineSession(Long id, String tutorId, String reason) {
+        TutoringSession session = repository.findById(id).orElseThrow(() -> new RuntimeException("Session not found"));
+        if (session.getTutorId() == null || tutorId == null || !session.getTutorId().trim().equalsIgnoreCase(tutorId.trim())) {
+            throw new RuntimeException("Unauthorized");
+        }
+        session.setStatus("DECLINED");
+        session.setDeclineReason(reason);

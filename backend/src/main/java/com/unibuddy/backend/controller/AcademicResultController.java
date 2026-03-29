@@ -33,3 +33,8 @@ public class AcademicResultController {
     @PutMapping("/{id}")
     public ResponseEntity<AcademicResult> updateResult(@PathVariable Long id, @RequestBody AcademicResult result) {
         return ResponseEntity.ok(academicService.updateResult(id, result));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteResult(@PathVariable Long id) {
+        academicService.deleteResult(id);

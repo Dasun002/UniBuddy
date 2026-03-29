@@ -40,3 +40,9 @@ public class ReportService {
             title.setAlignment(Paragraph.ALIGN_CENTER);
             document.add(title);
             
+            document.add(new Paragraph("\n"));
+            
+            Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14);
+            Font normalFont = FontFactory.getFont(FontFactory.HELVETICA, 12);
+            
+            // Question Section

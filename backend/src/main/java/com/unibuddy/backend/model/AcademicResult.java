@@ -12,3 +12,5 @@ import lombok.Data;
 @Data
 public class AcademicResult {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;

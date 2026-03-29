@@ -47,3 +47,10 @@ public class TutoringSessionController {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
+
+    @DeleteMapping("/{id}/cancel")
+    public ResponseEntity<?> cancelSession(@PathVariable Long id, @RequestParam String studentId) {
+        try {
+            service.cancelSession(id, studentId);
+            return ResponseEntity.ok(Map.of("message", "Cancelled"));
+        } catch (Exception e) {

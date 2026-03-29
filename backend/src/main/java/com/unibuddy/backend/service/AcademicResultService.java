@@ -68,3 +68,13 @@ public class AcademicResultService {
         for (AcademicResult r : results) {
             totalPoints += (r.getGradePoint() * r.getCredits());
             totalCredits += r.getCredits();
+        }
+        
+        return totalCredits == 0 ? 0.0 : Math.round((totalPoints / totalCredits) * 100.0) / 100.0;
+    }
+
+    public Map<String, Object> predictRequiredGPA(String studentId, double targetCGPA, int remainingCredits) {
+        List<AcademicResult> results = repository.findByStudentId(studentId);
+        
+        double currentTotalPoints = 0;
+        int currentTotalCredits = 0;

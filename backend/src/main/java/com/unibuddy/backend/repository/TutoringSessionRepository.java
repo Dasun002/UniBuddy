@@ -18,3 +18,7 @@ public interface TutoringSessionRepository extends JpaRepository<TutoringSession
 
     // Find all sessions a student is teaching
     List<TutoringSession> findByTutorIdOrderBySessionDateDesc(String tutorId);
+
+    // The Overlap Checker: Returns true if the tutor is already booked
+    @Query("SELECT COUNT(t) > 0 FROM TutoringSession t WHERE t.tutorId = :tutorId " +
+           "AND t.sessionDate = :date " +
