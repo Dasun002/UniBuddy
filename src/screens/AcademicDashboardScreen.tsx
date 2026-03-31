@@ -186,3 +186,50 @@ const AcademicDashboardScreen = ({ route, navigation }: any) => {
           />
         ) : <Text style={styles.emptyText}>Add results to see your trend</Text>}
       </Animatable.View>
+
+      <Animatable.View animation="zoomIn" delay={200} duration={600} style={styles.chartCard}>
+        <Text style={styles.sectionTitle}>Credit Distribution</Text>
+        <PieChart
+          data={pieData}
+          width={screenWidth - 60}
+          height={150}
+          chartConfig={{ color: () => appTheme.colors.textPrimary }}
+          accessor={"credits"}
+          backgroundColor={"transparent"}
+          paddingLeft={"0"}
+          absolute
+        />
+      </Animatable.View>
+
+      <Animatable.View animation="fadeInUp" delay={300} duration={500} style={styles.actionRow}>
+        <TouchableOpacity style={styles.actionBtn} onPress={() => setAddModalVisible(true)}>
+          <Text style={styles.btnText}>+ Log Grade</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.actionBtnSecondary} onPress={() => setPredictorVisible(true)}>
+          <Text style={styles.btnTextDark}>Predictor</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.actionBtnOutline} onPress={handleDownloadPDF}>
+          <Text style={styles.btnTextPrimary}>Generate Report</Text>
+        </TouchableOpacity>
+      </Animatable.View>
+
+      <View style={styles.historySection}>
+        <Animatable.Text animation="fadeIn" delay={400} style={styles.historyTitle}>History</Animatable.Text>
+        {results.map((item, idx) => (
+          <Animatable.View key={idx} animation="slideInRight" delay={400 + (idx * 50)} duration={400} style={styles.historyCard}>
+            <View>
+              <Text style={styles.modCode}>{item.moduleCode}</Text>
+              <Text style={styles.modName}>Sem {item.semester} • {item.credits} Cr</Text>
+            </View>
+            <View style={styles.gradeBox}>
+              <Text style={styles.gradeTxt}>{item.grade}</Text>
+              <TouchableOpacity onPress={() => handleDelete(item.id)}>
+                <Text style={styles.delBtn}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+          </Animatable.View>
+        ))}
+      </View>
+
+      {/* Add Grade Modal */}
+      <Modal visible={isAddModalVisible} animationType="slide" transparent>
