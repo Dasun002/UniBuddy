@@ -46,3 +46,9 @@ public class ReportService {
             Font normalFont = FontFactory.getFont(FontFactory.HELVETICA, 12);
             
             // Question Section
+            document.add(new Paragraph("Question Title: " + q.getTitle(), headerFont));
+            document.add(new Paragraph("Module: " + q.getModuleCode(), normalFont));
+            document.add(new Paragraph("Author: " + q.getUniversityId(), normalFont));
+            document.add(new Paragraph("Upvotes: " + q.getUpvotes() + " | Downvotes: " + q.getDownvotes(), normalFont));
+            document.add(new Paragraph("\n" + q.getContent(), normalFont));
+            

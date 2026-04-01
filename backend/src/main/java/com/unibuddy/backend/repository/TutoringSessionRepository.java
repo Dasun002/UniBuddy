@@ -22,3 +22,6 @@ public interface TutoringSessionRepository extends JpaRepository<TutoringSession
     // The Overlap Checker: Returns true if the tutor is already booked
     @Query("SELECT COUNT(t) > 0 FROM TutoringSession t WHERE t.tutorId = :tutorId " +
            "AND t.sessionDate = :date " +
+           "AND t.status = 'SCHEDULED' " +
+           "AND (t.startTime < :endTime AND t.endTime > :startTime)")
+    boolean isTutorBooked(

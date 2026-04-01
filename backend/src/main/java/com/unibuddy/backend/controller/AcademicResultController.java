@@ -38,3 +38,8 @@ public class AcademicResultController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteResult(@PathVariable Long id) {
         academicService.deleteResult(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/cgpa/{studentId}")
+    public ResponseEntity<Double> getCGPA(@PathVariable String studentId) {

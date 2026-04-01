@@ -54,3 +54,10 @@ public class TutoringSessionController {
             service.cancelSession(id, studentId);
             return ResponseEntity.ok(Map.of("message", "Cancelled"));
         } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+    
+    public static class DeclineRequest {
+        public String declineReason;
+    }

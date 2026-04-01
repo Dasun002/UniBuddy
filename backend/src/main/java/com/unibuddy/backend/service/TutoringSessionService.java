@@ -70,3 +70,12 @@ public class TutoringSessionService {
         }
         session.setStatus("DECLINED");
         session.setDeclineReason(reason);
+        repository.save(session);
+    }
+
+    public void cancelSession(Long id, String requestingStudentId) {
+        TutoringSession session = repository.findById(id).orElseThrow(() -> new RuntimeException("Session not found"));
+        boolean isStudent = session.getStudentId() != null && requestingStudentId != null && session.getStudentId().trim().equalsIgnoreCase(requestingStudentId.trim());
+        boolean isTutor = session.getTutorId() != null && requestingStudentId != null && session.getTutorId().trim().equalsIgnoreCase(requestingStudentId.trim());
+        if (!isStudent && !isTutor) {
+            throw new RuntimeException("Unauthorized Access: You lack the necessary permissions to cancel this session.");

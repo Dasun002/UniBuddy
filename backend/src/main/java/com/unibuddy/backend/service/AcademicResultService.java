@@ -78,3 +78,13 @@ public class AcademicResultService {
         
         double currentTotalPoints = 0;
         int currentTotalCredits = 0;
+
+        for (AcademicResult r : results) {
+            currentTotalPoints += (r.getGradePoint() * r.getCredits());
+            currentTotalCredits += r.getCredits();
+        }
+        
+        int projectedTotalCredits = currentTotalCredits + remainingCredits;
+        double requiredTotalPoints = (targetCGPA * projectedTotalCredits) - currentTotalPoints;
+        double requiredGPAForRemaining = remainingCredits == 0 ? 0 : requiredTotalPoints / remainingCredits;
+        

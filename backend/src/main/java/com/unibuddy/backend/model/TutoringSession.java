@@ -14,3 +14,5 @@ public class TutoringSession {
     private Long id;
 
     private String studentId; 
+    private String tutorId;   
+    private String moduleCode; 
