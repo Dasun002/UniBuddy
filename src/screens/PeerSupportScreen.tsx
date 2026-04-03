@@ -218,3 +218,58 @@ const PeerSupportScreen = ({ route, navigation }: any) => {
         {activeTab === 'myBookings' ? (
           <>
             {history.length === 0 ? <Text style={styles.empty}>No bookings found.</Text> : null}
+            {history.map((item, idx) => (
+              <Animatable.View key={idx} animation="fadeInUp" delay={idx * 100} style={styles.historyCard}>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.modCode}>{item.moduleCode}</Text>
+                  <Text style={styles.details}>Tutor: {item.tutorId}</Text>
+                  <Text style={styles.details}>Date: {item.sessionDate}</Text>
+                  <Text style={styles.details}>Time: {item.startTime} - {item.endTime}</Text>
+                  <Text style={[styles.status, item.status === 'CANCELLED' || item.status === 'DECLINED' ? {color: 'red'} : item.status === 'COMPLETED' ? {color: 'green'} : item.status === 'PENDING' ? {color: 'orange'} : {}]}>{item.status}</Text>
+                  {item.status === 'DECLINED' && item.declineReason && (
+                    <Text style={{color: 'red', fontStyle:'italic', marginTop: 4}}>Reason: {item.declineReason}</Text>
+                  )}
+                </View>
+                <View style={styles.actionBox}>
+                  {(item.status === 'SCHEDULED' || item.status === 'PENDING') && (
+                    <TouchableOpacity style={styles.delBtn} onPress={() => handleCancel(item.id)}>
+                      <Text style={styles.delBtnText}>Cancel</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+              </Animatable.View>
+            ))}
+          </>
+        ) : (
+          <>
+            {tutorRequests.length === 0 ? <Text style={styles.empty}>No requests found.</Text> : null}
+            {tutorRequests.map((item, idx) => (
+              <Animatable.View key={idx} animation="fadeInUp" delay={idx * 100} style={styles.historyCard}>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.modCode}>{item.moduleCode}</Text>
+                  <Text style={styles.details}>Student: {item.studentId}</Text>
+                  <Text style={styles.details}>Date: {item.sessionDate}</Text>
+                  <Text style={styles.details}>Time: {item.startTime} - {item.endTime}</Text>
+                  <Text style={[styles.status, item.status === 'CANCELLED' || item.status === 'DECLINED' ? {color: 'red'} : item.status === 'COMPLETED' ? {color: 'green'} : item.status === 'PENDING' ? {color: 'orange'} : {}]}>{item.status}</Text>
+                </View>
+                <View style={[styles.actionBox, {flexDirection: 'row', gap: 5}]}>
+                  {item.status === 'PENDING' && (
+                    <>
+                      <TouchableOpacity style={styles.acceptBtn} onPress={() => handleAccept(item.id)}>
+                        <Text style={styles.acceptBtnText}>✓ Accept</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.delBtn} onPress={() => openDeclineModal(item.id)}>
+                        <Text style={styles.delBtnText}>✗ Decline</Text>
+                      </TouchableOpacity>
+                    </>
+                  )}
+                  {item.status === 'SCHEDULED' && (
+                    <TouchableOpacity style={styles.acceptBtn} onPress={() => {
+                        tutoringApi.completeSession(item.id, currentUserId).then(() => fetchData());
+                    }}>
+                      <Text style={styles.acceptBtnText}>Complete</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+              </Animatable.View>
+            ))}
