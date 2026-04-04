@@ -16,3 +16,5 @@ public class AcademicResult {
     private Long id;
 
     private String studentId;
+    private int semester;
+    private String moduleCode;

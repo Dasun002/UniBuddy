@@ -16,3 +16,5 @@ public class TutoringSession {
     private String studentId; 
     private String tutorId;   
     private String moduleCode; 
+
+    private LocalDate sessionDate;

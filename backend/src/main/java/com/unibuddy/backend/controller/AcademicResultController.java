@@ -43,3 +43,8 @@ public class AcademicResultController {
 
     @GetMapping("/cgpa/{studentId}")
     public ResponseEntity<Double> getCGPA(@PathVariable String studentId) {
+        return ResponseEntity.ok(academicService.calculateCGPA(studentId));
+    }
+
+    @GetMapping("/gpa/{studentId}/semester/{semester}")
+    public ResponseEntity<Double> getSemesterGPA(@PathVariable String studentId, @PathVariable int semester) {

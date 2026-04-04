@@ -61,3 +61,10 @@ public class TutoringSessionController {
     public static class DeclineRequest {
         public String declineReason;
     }
+
+    @PutMapping("/{id}/accept")
+    public ResponseEntity<?> acceptSession(@PathVariable Long id, @RequestParam String tutorId) {
+        try {
+            service.acceptSession(id, tutorId);
+            return ResponseEntity.ok(Map.of("message", "Accepted"));
+        } catch (Exception e) {

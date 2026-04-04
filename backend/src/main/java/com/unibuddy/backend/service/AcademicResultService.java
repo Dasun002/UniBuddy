@@ -88,3 +88,12 @@ public class AcademicResultService {
         double requiredTotalPoints = (targetCGPA * projectedTotalCredits) - currentTotalPoints;
         double requiredGPAForRemaining = remainingCredits == 0 ? 0 : requiredTotalPoints / remainingCredits;
         
+        Map<String, Object> prediction = new HashMap<>();
+        prediction.put("currentCGPA", computeGPA(results));
+        prediction.put("currentCredits", currentTotalCredits);
+        prediction.put("remainingCredits", remainingCredits);
+        prediction.put("targetCGPA", targetCGPA);
+        prediction.put("requiredGPA", Math.round(requiredGPAForRemaining * 100.0) / 100.0);
+        
+        boolean isPossible = requiredGPAForRemaining <= 4.0 && requiredGPAForRemaining > 0;
+        prediction.put("isPossible", isPossible || (remainingCredits == 0 && computeGPA(results) >= targetCGPA));

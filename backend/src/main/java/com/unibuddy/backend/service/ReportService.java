@@ -52,3 +52,9 @@ public class ReportService {
             document.add(new Paragraph("Upvotes: " + q.getUpvotes() + " | Downvotes: " + q.getDownvotes(), normalFont));
             document.add(new Paragraph("\n" + q.getContent(), normalFont));
             
+            document.add(new Paragraph("\n------------------------------------------------------------\n"));
+            
+            // All Answers Section
+            if (allAnswers.isEmpty()) {
+                document.add(new Paragraph("No answers available for this question yet.", normalFont));
+            } else {

@@ -25,3 +25,6 @@ public interface TutoringSessionRepository extends JpaRepository<TutoringSession
            "AND t.status = 'SCHEDULED' " +
            "AND (t.startTime < :endTime AND t.endTime > :startTime)")
     boolean isTutorBooked(
+            @Param("tutorId") String tutorId, 
+            @Param("date") LocalDate date, 
+            @Param("startTime") LocalTime startTime, 
