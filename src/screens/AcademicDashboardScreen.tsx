@@ -233,3 +233,50 @@ const AcademicDashboardScreen = ({ route, navigation }: any) => {
 
       {/* Add Grade Modal */}
       <Modal visible={isAddModalVisible} animationType="slide" transparent>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>New Result</Text>
+            
+            <Text style={styles.label}>Select Semester</Text>
+            <View style={styles.pillContainer}>
+              {SEMESTER_OPTIONS.map(sem => (
+                <TouchableOpacity 
+                   key={sem.value} 
+                   style={[styles.pill, semester === sem.value && styles.pillSelected]}
+                   onPress={() => setSemester(sem.value)}>
+                   <Text style={[styles.pillText, semester === sem.value && styles.pillTextSelected]}>{sem.label}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            
+            <Text style={styles.label}>Select Module</Text>
+            <View style={styles.pillContainer}>
+              {MODULE_OPTIONS.map(mod => (
+                <TouchableOpacity 
+                   key={mod.code} 
+                   style={[styles.pill, moduleCode === mod.code && styles.pillSelected]}
+                   onPress={() => {
+                     setModuleCode(mod.code);
+                     setModuleName(mod.name);
+                     setCredits(mod.credits.toString());
+                   }}>
+                   <Text style={[styles.pillText, moduleCode === mod.code && styles.pillTextSelected]}>{mod.code}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            {moduleCode ? <Text style={styles.helperText}>{moduleName} • {credits} Credits</Text> : null}
+
+            <Text style={styles.label}>Select Grade</Text>
+            <View style={styles.pillContainer}>
+              {GRADE_OPTIONS.map(g => (
+                <TouchableOpacity 
+                   key={g.value} 
+                   style={[styles.pill, grade === g.value && styles.pillSelected]}
+                   onPress={() => setGrade(g.value)}>
+                   <Text style={[styles.pillText, grade === g.value && styles.pillTextSelected]}>{g.value}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+
+            <View style={styles.modalActions}>
+              <Button title="Cancel" onPress={() => setAddModalVisible(false)} />
