@@ -18,3 +18,5 @@ public class AcademicResult {
     private String studentId;
     private int semester;
     private String moduleCode;
+    private String moduleName;
+    private int credits;

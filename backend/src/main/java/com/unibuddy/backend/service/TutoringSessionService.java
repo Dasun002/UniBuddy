@@ -88,3 +88,12 @@ public class TutoringSessionService {
         TutoringSession session = repository.findById(id).orElseThrow(() -> new RuntimeException("Session not found"));
         if (session.getTutorId() == null || tutorId == null || !session.getTutorId().trim().equalsIgnoreCase(tutorId.trim())) {
             throw new RuntimeException("Unauthorized");
+        }
+        session.setStatus("COMPLETED");
+        repository.save(session);
+    }
+
+    public byte[] generateCollaborationSummary(String studentId) {
+        List<TutoringSession> sessions = repository.findByStudentIdOrderBySessionDateDesc(studentId);
+        
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {

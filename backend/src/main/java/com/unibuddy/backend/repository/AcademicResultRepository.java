@@ -8,3 +8,4 @@ import java.util.List;
 
 @Repository
 public interface AcademicResultRepository extends JpaRepository<AcademicResult, Long> {
+    List<AcademicResult> findByStudentId(String studentId);

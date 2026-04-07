@@ -58,3 +58,9 @@ public class ReportService {
             if (allAnswers.isEmpty()) {
                 document.add(new Paragraph("No answers available for this question yet.", normalFont));
             } else {
+                document.add(new Paragraph("Answers (" + allAnswers.size() + ")", headerFont));
+                document.add(new Paragraph("\n"));
+
+                // Sort answers: most recommended first, then by upvotes descending
+                allAnswers.sort((a1, a2) -> {
+                    if (a1.isMostRecommended() && !a2.isMostRecommended()) return -1;

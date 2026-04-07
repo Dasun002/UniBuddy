@@ -28,3 +28,5 @@ public interface TutoringSessionRepository extends JpaRepository<TutoringSession
             @Param("tutorId") String tutorId, 
             @Param("date") LocalDate date, 
             @Param("startTime") LocalTime startTime, 
+            @Param("endTime") LocalTime endTime);
+}

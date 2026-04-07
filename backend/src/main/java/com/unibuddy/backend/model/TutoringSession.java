@@ -18,3 +18,5 @@ public class TutoringSession {
     private String moduleCode; 
 
     private LocalDate sessionDate;
+    private LocalTime startTime;
+    private LocalTime endTime;

@@ -97,3 +97,14 @@ public class AcademicResultService {
         
         boolean isPossible = requiredGPAForRemaining <= 4.0 && requiredGPAForRemaining > 0;
         prediction.put("isPossible", isPossible || (remainingCredits == 0 && computeGPA(results) >= targetCGPA));
+
+        return prediction;
+    }
+
+    public byte[] generateAcademicReport(String studentId) {
+        List<AcademicResult> results = repository.findByStudentId(studentId);
+        
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            Document document = new Document();
+            PdfWriter.getInstance(document, baos);
+            document.open();
