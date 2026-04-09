@@ -273,3 +273,58 @@ const PeerSupportScreen = ({ route, navigation }: any) => {
                 </View>
               </Animatable.View>
             ))}
+          </>
+        )}
+      </ScrollView>
+
+      {/* Book Session Modal */}
+      <Modal visible={isBookModalVisible} animationType="slide" transparent>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Book Tutoring</Text>
+            
+            <Text style={styles.label}>Tutor IT Number</Text>
+            <View style={{zIndex: 1000}}>
+              <TextInput style={styles.input} placeholder="e.g. IT236" value={tutorId} onChangeText={handleTutorIdChange} />
+              {searchSuggestions.length > 0 && (
+                <View style={styles.suggestionBox}>
+                  <ScrollView nestedScrollEnabled keyboardShouldPersistTaps="handled">
+                    {searchSuggestions.map((u, i) => (
+                      <TouchableOpacity key={i} style={styles.suggestionItem} onPress={() => selectTutor(u.universityId)}>
+                        <Text style={styles.suggestionText}>{u.universityId} - {u.name}</Text>
+                      </TouchableOpacity>
+                    ))}
+                  </ScrollView>
+                </View>
+              )}
+            </View>
+            
+            <Text style={styles.label}>Module Code</Text>
+            <View style={styles.pillContainer}>
+              {MODULE_OPTIONS.map(mod => (
+                <TouchableOpacity 
+                   key={mod.code} 
+                   style={[styles.pill, moduleCode === mod.code && styles.pillSelected]}
+                   onPress={() => setModuleCode(mod.code)}>
+                   <Text style={[styles.pillText, moduleCode === mod.code && styles.pillTextSelected]}>{mod.code}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            
+            <Text style={styles.label}>Date</Text>
+            <TouchableOpacity style={styles.pickerBox} onPress={() => setShowDatePicker(true)}>
+              <Text style={styles.pickerText}>{sessionDate ? sessionDate : 'Select Date'}</Text>
+            </TouchableOpacity>
+            
+            <View style={{flexDirection: 'row', gap: 10}}>
+                <View style={{flex: 1}}>
+                    <Text style={styles.label}>Start Time</Text>
+                    <TouchableOpacity style={styles.pickerBox} onPress={() => setShowStartTimePicker(true)}>
+                      <Text style={styles.pickerText}>{startTime ? startTime : 'Start Time'}</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{flex: 1}}>
+                    <Text style={styles.label}>End Time</Text>
+                    <TouchableOpacity style={styles.pickerBox} onPress={() => setShowEndTimePicker(true)}>
+                      <Text style={styles.pickerText}>{endTime ? endTime : 'End Time'}</Text>
+                    </TouchableOpacity>
