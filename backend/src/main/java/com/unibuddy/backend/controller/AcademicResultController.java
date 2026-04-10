@@ -53,3 +53,8 @@ public class AcademicResultController {
 
     @GetMapping("/predict/{studentId}")
     public ResponseEntity<Map<String, Object>> predictGPA(
+            @PathVariable String studentId,
+            @RequestParam double targetCGPA,
+            @RequestParam int remainingCredits) {
+        return ResponseEntity.ok(academicService.predictRequiredGPA(studentId, targetCGPA, remainingCredits));
+    }

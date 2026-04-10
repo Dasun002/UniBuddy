@@ -108,3 +108,13 @@ public class AcademicResultService {
             Document document = new Document();
             PdfWriter.getInstance(document, baos);
             document.open();
+
+            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20);
+            Paragraph title = new Paragraph("Academic Growth Report", titleFont);
+            title.setAlignment(Paragraph.ALIGN_CENTER);
+            title.setSpacingAfter(20);
+            document.add(title);
+            
+            Paragraph studentInfo = new Paragraph("Student ID: " + studentId + "\nOverall CGPA: " + calculateCGPA(studentId));
+            studentInfo.setSpacingAfter(20);
+            document.add(studentInfo);

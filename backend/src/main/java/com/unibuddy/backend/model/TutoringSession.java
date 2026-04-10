@@ -20,3 +20,5 @@ public class TutoringSession {
     private LocalDate sessionDate;
     private LocalTime startTime;
     private LocalTime endTime;
+
+    private String status = "PENDING"; 

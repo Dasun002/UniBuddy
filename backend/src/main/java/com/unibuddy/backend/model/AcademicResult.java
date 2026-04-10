@@ -20,3 +20,5 @@ public class AcademicResult {
     private String moduleCode;
     private String moduleName;
     private int credits;
+    private String grade;
+    private double gradePoint;

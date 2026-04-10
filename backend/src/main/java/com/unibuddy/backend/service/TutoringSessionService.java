@@ -97,3 +97,12 @@ public class TutoringSessionService {
         List<TutoringSession> sessions = repository.findByStudentIdOrderBySessionDateDesc(studentId);
         
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            Document document = new Document();
+            PdfWriter.getInstance(document, baos);
+            document.open();
+
+            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20);
+            Paragraph title = new Paragraph("Peer Collaboration Summary", titleFont);
+            title.setAlignment(Paragraph.ALIGN_CENTER);
+            title.setSpacingAfter(20);
+            document.add(title);

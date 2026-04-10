@@ -64,3 +64,9 @@ public class ReportService {
                 // Sort answers: most recommended first, then by upvotes descending
                 allAnswers.sort((a1, a2) -> {
                     if (a1.isMostRecommended() && !a2.isMostRecommended()) return -1;
+                    if (!a1.isMostRecommended() && a2.isMostRecommended()) return 1;
+                    return Integer.compare(a2.getUpvotes(), a1.getUpvotes());
+                });
+
+                int answerNum = 1;
+                for (ForumAnswer answer : allAnswers) {
