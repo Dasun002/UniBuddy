@@ -280,3 +280,50 @@ const AcademicDashboardScreen = ({ route, navigation }: any) => {
 
             <View style={styles.modalActions}>
               <Button title="Cancel" onPress={() => setAddModalVisible(false)} />
+              <Button title="Save" onPress={handleAddResult} />
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Predictor Modal */}
+      <Modal visible={isPredictorVisible} animationType="fade" transparent>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Smart Predictor</Text>
+            <Text style={styles.promptText}>Find out the minimum GPA you need to maintain to reach a target CGPA.</Text>
+            <TextInput style={styles.input} placeholder="Target CGPA (out of 4.0)" placeholderTextColor={appTheme.colors.textDarkSoft} value={targetCGPA} onChangeText={setTargetCGPA} keyboardType="numeric"/>
+            <TextInput style={styles.input} placeholder="Est. Remaining Credits in Degree" placeholderTextColor={appTheme.colors.textDarkSoft} value={remainingCredits} onChangeText={setRemainingCredits} keyboardType="numeric" />
+            
+            <TouchableOpacity style={styles.predictBtnCore} onPress={handlePredict}>
+              <Text style={styles.btnText}>Calculate</Text>
+            </TouchableOpacity>
+
+            {prediction && (
+              <View style={styles.predResult}>
+                <Text>Current standing: {prediction.currentCGPA} CGPA</Text>
+                <Text style={styles.highlight}>Required Minimum GPA: {prediction.requiredGPA}</Text>
+                <Text style={prediction.isPossible ? styles.successTxt : styles.errorTxt}>
+                  {prediction.isPossible ? "This is mathematically achievable." : "Impossible with remaining credits."}
+                </Text>
+              </View>
+            )}
+
+            <View style={styles.modalActions}>
+              <Button title="Close" onPress={() => setPredictorVisible(false)} />
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+    </ScrollView>
+  );
+};
+
+const Button = ({title, onPress}: any) => (
+  <TouchableOpacity onPress={onPress} style={{padding: 10}}><Text style={{color: appTheme.colors.primary, fontWeight:'bold'}}>{title}</Text></TouchableOpacity>
+);
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: appTheme.colors.bg, padding: 15 },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, backgroundColor: appTheme.colors.glassSoft, borderRadius: 16, padding: 12, borderWidth: 1, borderColor: appTheme.colors.cardBorder },
