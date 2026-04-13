@@ -118,3 +118,13 @@ public class AcademicResultService {
             Paragraph studentInfo = new Paragraph("Student ID: " + studentId + "\nOverall CGPA: " + calculateCGPA(studentId));
             studentInfo.setSpacingAfter(20);
             document.add(studentInfo);
+
+            PdfPTable table = new PdfPTable(4);
+            table.setWidthPercentage(100);
+            
+            String[] headers = {"Semester", "Module", "Credits", "Grade (Point)"};
+            for (String header : headers) {
+                PdfPCell cell = new PdfPCell(new Phrase(header, FontFactory.getFont(FontFactory.HELVETICA_BOLD)));
+                table.addCell(cell);
+            }
+            

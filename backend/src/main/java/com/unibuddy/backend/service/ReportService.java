@@ -70,3 +70,9 @@ public class ReportService {
 
                 int answerNum = 1;
                 for (ForumAnswer answer : allAnswers) {
+                    if (answer.isMostRecommended()) {
+                        Font badgeFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, new java.awt.Color(0, 102, 0));
+                        document.add(new Paragraph("★ MOST RECOMMENDED ANSWER ★", badgeFont));
+                    } else {
+                        document.add(new Paragraph("Answer #" + answerNum, headerFont));
+                    }

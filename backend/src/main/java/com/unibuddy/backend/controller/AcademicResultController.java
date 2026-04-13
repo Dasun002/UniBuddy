@@ -58,3 +58,8 @@ public class AcademicResultController {
             @RequestParam int remainingCredits) {
         return ResponseEntity.ok(academicService.predictRequiredGPA(studentId, targetCGPA, remainingCredits));
     }
+
+    @GetMapping("/report/{studentId}")
+    public ResponseEntity<byte[]> getAcademicReport(@PathVariable String studentId) {
+        byte[] pdfBytes = academicService.generateAcademicReport(studentId);
+        HttpHeaders headers = new HttpHeaders();

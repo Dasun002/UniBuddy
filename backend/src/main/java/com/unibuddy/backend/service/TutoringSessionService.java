@@ -106,3 +106,12 @@ public class TutoringSessionService {
             title.setAlignment(Paragraph.ALIGN_CENTER);
             title.setSpacingAfter(20);
             document.add(title);
+            
+            Paragraph studentInfo = new Paragraph("Student ID: " + studentId);
+            studentInfo.setSpacingAfter(20);
+            document.add(studentInfo);
+
+            PdfPTable table = new PdfPTable(4);
+            table.setWidthPercentage(100);
+            
+            String[] headers = {"Date", "Module", "Tutor", "Status"};

@@ -22,3 +22,5 @@ public class TutoringSession {
     private LocalTime endTime;
 
     private String status = "PENDING"; 
+    private String declineReason;
+}

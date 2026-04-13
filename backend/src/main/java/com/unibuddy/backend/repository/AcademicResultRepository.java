@@ -10,3 +10,4 @@ import java.util.List;
 public interface AcademicResultRepository extends JpaRepository<AcademicResult, Long> {
     List<AcademicResult> findByStudentId(String studentId);
     List<AcademicResult> findByStudentIdAndSemester(String studentId, int semester);
+}

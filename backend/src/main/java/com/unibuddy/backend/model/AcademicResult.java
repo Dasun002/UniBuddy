@@ -22,3 +22,4 @@ public class AcademicResult {
     private int credits;
     private String grade;
     private double gradePoint;
+}

@@ -82,3 +82,10 @@ public class TutoringSessionController {
         }
     }
     
+    @PutMapping("/{id}/complete")
+    public ResponseEntity<?> completeSession(@PathVariable Long id, @RequestParam String tutorId) {
+        try {
+            service.markCompleted(id, tutorId);
+            return ResponseEntity.ok(Map.of("message", "Completed"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
