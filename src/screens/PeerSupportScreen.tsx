@@ -328,3 +328,58 @@ const PeerSupportScreen = ({ route, navigation }: any) => {
                     <TouchableOpacity style={styles.pickerBox} onPress={() => setShowEndTimePicker(true)}>
                       <Text style={styles.pickerText}>{endTime ? endTime : 'End Time'}</Text>
                     </TouchableOpacity>
+                </View>
+            </View>
+
+            {showDatePicker && (
+              <DateTimePicker
+                value={dateObj}
+                mode="date"
+                display="default"
+                onChange={handleDateChange}
+              />
+            )}
+            {showStartTimePicker && (
+              <DateTimePicker
+                value={startObj}
+                mode="time"
+                display="default"
+                onChange={handleStartTimeChange}
+              />
+            )}
+            {showEndTimePicker && (
+              <DateTimePicker
+                value={endObj}
+                mode="time"
+                display="default"
+                onChange={handleEndTimeChange}
+              />
+            )}
+
+            <View style={styles.modalActions}>
+              <TouchableOpacity onPress={() => setBookModalVisible(false)} style={{padding: 10}}>
+                 <Text style={{color: appTheme.colors.primary, fontWeight:'bold'}}>Close</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleBookSession} style={{padding: 10}}>
+                 <Text style={{color: appTheme.colors.primary, fontWeight:'bold'}}>Book</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal visible={isDeclineModalVisible} animationType="fade" transparent>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Decline Request</Text>
+            <Text style={styles.label}>Reason for declining?</Text>
+            <TextInput style={styles.input} placeholder="I have a class during this time" value={declineReason} onChangeText={setDeclineReason} />
+            <View style={styles.modalActions}>
+              <TouchableOpacity onPress={() => setDeclineModalVisible(false)} style={{padding: 10}}>
+                 <Text style={{color: appTheme.colors.primary, fontWeight:'bold'}}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleDecline} style={{padding: 10}}>
+                 <Text style={{color: 'red', fontWeight:'bold'}}>Decline Session</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
