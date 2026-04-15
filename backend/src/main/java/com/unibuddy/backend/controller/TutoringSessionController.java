@@ -89,3 +89,10 @@ public class TutoringSessionController {
             return ResponseEntity.ok(Map.of("message", "Completed"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    @GetMapping("/report/{studentId}")
+    public ResponseEntity<byte[]> getCollaborationReport(@PathVariable String studentId) {
+        byte[] pdfBytes = service.generateCollaborationSummary(studentId);
+        HttpHeaders headers = new HttpHeaders();

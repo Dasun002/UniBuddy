@@ -128,3 +128,13 @@ public class AcademicResultService {
                 table.addCell(cell);
             }
             
+            for (AcademicResult r : results) {
+                table.addCell(String.valueOf(r.getSemester()));
+                table.addCell(r.getModuleCode() + " - " + (r.getModuleName() != null ? r.getModuleName() : ""));
+                table.addCell(String.valueOf(r.getCredits()));
+                table.addCell(r.getGrade() + " (" + r.getGradePoint() + ")");
+            }
+
+            document.add(table);
+            document.close();
+            return baos.toByteArray();

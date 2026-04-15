@@ -76,3 +76,9 @@ public class ReportService {
                     } else {
                         document.add(new Paragraph("Answer #" + answerNum, headerFont));
                     }
+                    document.add(new Paragraph("Author: " + answer.getUniversityId(), normalFont));
+                    document.add(new Paragraph("Upvotes: " + answer.getUpvotes(), normalFont));
+                    document.add(new Paragraph(answer.getContent(), normalFont));
+                    document.add(new Paragraph("\n"));
+                    answerNum++;
+                }

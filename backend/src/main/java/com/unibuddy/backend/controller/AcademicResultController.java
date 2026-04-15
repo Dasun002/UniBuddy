@@ -63,3 +63,8 @@ public class AcademicResultController {
     public ResponseEntity<byte[]> getAcademicReport(@PathVariable String studentId) {
         byte[] pdfBytes = academicService.generateAcademicReport(studentId);
         HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "academic_report_" + studentId + ".pdf");
+        
+        headers.setCacheControl("no-cache, no-store, must-revalidate");
+        headers.setPragma("no-cache");

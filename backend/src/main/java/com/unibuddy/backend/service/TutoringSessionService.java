@@ -115,3 +115,12 @@ public class TutoringSessionService {
             table.setWidthPercentage(100);
             
             String[] headers = {"Date", "Module", "Tutor", "Status"};
+            for (String header : headers) {
+                PdfPCell cell = new PdfPCell(new Phrase(header, FontFactory.getFont(FontFactory.HELVETICA_BOLD)));
+                table.addCell(cell);
+            }
+            
+            for (TutoringSession s : sessions) {
+                table.addCell(s.getSessionDate().toString());
+                table.addCell(s.getModuleCode());
+                table.addCell(s.getTutorId());
