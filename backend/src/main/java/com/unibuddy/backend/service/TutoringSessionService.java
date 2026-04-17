@@ -124,3 +124,12 @@ public class TutoringSessionService {
                 table.addCell(s.getSessionDate().toString());
                 table.addCell(s.getModuleCode());
                 table.addCell(s.getTutorId());
+                table.addCell(s.getStatus());
+            }
+
+            document.add(table);
+            document.close();
+            return baos.toByteArray();
+        } catch (DocumentException | IOException e) {
+            throw new RuntimeException("Failed to generate report", e);
+        }

@@ -82,3 +82,9 @@ public class ReportService {
                     document.add(new Paragraph("\n"));
                     answerNum++;
                 }
+            }
+            
+            document.close();
+            return baos.toByteArray();
+        } catch (Exception e) {
+            throw new RuntimeException("Error generating PDF report", e);

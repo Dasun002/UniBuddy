@@ -96,3 +96,8 @@ public class TutoringSessionController {
     public ResponseEntity<byte[]> getCollaborationReport(@PathVariable String studentId) {
         byte[] pdfBytes = service.generateCollaborationSummary(studentId);
         HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "peer_summary_" + studentId + ".pdf");
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+}

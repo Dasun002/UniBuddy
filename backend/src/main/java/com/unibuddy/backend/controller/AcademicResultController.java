@@ -68,3 +68,8 @@ public class AcademicResultController {
         
         headers.setCacheControl("no-cache, no-store, must-revalidate");
         headers.setPragma("no-cache");
+        headers.setExpires(0);
+
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+}

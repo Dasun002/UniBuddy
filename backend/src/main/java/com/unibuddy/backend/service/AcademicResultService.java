@@ -138,3 +138,8 @@ public class AcademicResultService {
             document.add(table);
             document.close();
             return baos.toByteArray();
+        } catch (DocumentException | IOException e) {
+            throw new RuntimeException("Failed to generate report", e);
+        }
+    }
+}
