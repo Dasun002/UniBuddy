@@ -383,3 +383,54 @@ const PeerSupportScreen = ({ route, navigation }: any) => {
               </TouchableOpacity>
             </View>
           </View>
+        </View>
+      </Modal>
+
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: appTheme.colors.bg, padding: 15 },
+  header: { marginBottom: 20 },
+  title: { fontSize: 24, fontWeight: 'bold', color: appTheme.colors.textDark },
+  sectionTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 },
+  empty: { color: '#888', fontStyle: 'italic', marginTop: 10 },
+  actionRow: { flexDirection: 'row', gap: 10, marginBottom: 20 },
+  actionBtn: { backgroundColor: appTheme.colors.primary, padding: 12, borderRadius: 8, flex: 1, alignItems: 'center' },
+  actionBtnOutline: { borderWidth: 1, borderColor: appTheme.colors.primary, padding: 12, borderRadius: 8, flex: 1, alignItems: 'center' },
+  btnText: { color: '#fff', fontWeight: 'bold' },
+  btnTextPrimary: { color: appTheme.colors.primary, fontWeight: 'bold' },
+  historyCard: { backgroundColor: appTheme.colors.glassStrong, padding: 15, borderRadius: 8, flexDirection: 'row', alignItems:'center', marginBottom: 10, elevation: 1 },
+  modCode: { fontSize: 18, fontWeight: 'bold', color: appTheme.colors.textDark },
+  details: { fontSize: 14, color: '#555', marginTop: 2 },
+  status: { fontSize: 13, fontWeight: 'bold', color: appTheme.colors.primary, marginTop: 5 },
+  actionBox: { justifyContent: 'center' },
+  delBtn: { backgroundColor: '#ffe5e5', padding: 8, borderRadius: 6 },
+  delBtnText: { color: 'red', fontWeight: 'bold', fontSize: 12 },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center', padding: 20 },
+  modalContent: { backgroundColor: appTheme.colors.glassStrong, padding: 25, borderRadius: 12, elevation: 5 },
+  modalTitle: { fontSize: 22, fontWeight: 'bold', marginBottom: 15, color: appTheme.colors.textDark },
+  input: { borderBottomWidth: 1, borderColor: '#ddd', marginBottom: 15, paddingVertical: 8, fontSize: 16 },
+  pickerBox: { borderBottomWidth: 1, borderColor: '#ddd', marginBottom: 15, paddingVertical: 12 },
+  pickerText: { fontSize: 16, color: '#333' },
+  pillContainer: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 15 },
+  pill: { paddingHorizontal: 15, paddingVertical: 10, backgroundColor: '#eee', borderRadius: 20 },
+  pillSelected: { backgroundColor: appTheme.colors.primary },
+  pillText: { color: '#333', fontWeight: 'bold' },
+  pillTextSelected: { color: '#fff' },
+  label: { fontSize: 14, fontWeight: 'bold', color: '#444' },
+  suggestionBox: { position: 'absolute', top: 50, left: 0, right: 0, backgroundColor: appTheme.colors.glassStrong, borderWidth: 1, borderColor: '#ccc', borderRadius: 8, elevation: 10, zIndex: 1000, maxHeight: 150 },
+  suggestionItem: { padding: 12, borderBottomWidth: 1, borderBottomColor: '#eee' },
+  suggestionText: { fontSize: 14, color: '#333' },
+  modalActions: { flexDirection: 'row', justifyContent: 'flex-end', gap: 15, marginTop: 10 },
+  tabContainer: { flexDirection: 'row', borderBottomWidth: 1, borderColor: '#eee', marginBottom: 15 },
+  tab: { flex: 1, paddingVertical: 12, alignItems: 'center' },
+  activeTab: { borderBottomWidth: 3, borderColor: appTheme.colors.primary },
+  tabText: { fontSize: 16, color: '#777', fontWeight: 'bold' },
+  activeTabText: { color: appTheme.colors.primary },
+  acceptBtn: { backgroundColor: '#e5f9e5', padding: 8, borderRadius: 6 },
+  acceptBtnText: { color: 'green', fontWeight: 'bold', fontSize: 12 },
+});
+
+export default PeerSupportScreen;
