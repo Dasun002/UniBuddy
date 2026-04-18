@@ -133,3 +133,5 @@ public class TutoringSessionService {
         } catch (DocumentException | IOException e) {
             throw new RuntimeException("Failed to generate report", e);
         }
+    }
+}

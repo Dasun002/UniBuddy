@@ -88,3 +88,6 @@ public class ReportService {
             return baos.toByteArray();
         } catch (Exception e) {
             throw new RuntimeException("Error generating PDF report", e);
+        }
+    }
+}
